@@ -1,2 +1,15 @@
 <h1>Registries</h1>
-<p>This will show all registries.</p>
+
+<p *ngIf="loading">Loading…</p>
+<p *ngIf="error">{{ error }}</p>
+
+<ul *ngIf="!loading && !error">
+  <li *ngFor="let r of registries">
+    <strong>{{ r.eventName }}</strong>
+    — {{ r.ownerName }} — {{ r.date }}
+    <br />
+    <small>{{ r.description }}</small>
+    <br />
+    <small>Items: {{ r.items.length }} | Guests: {{ r.guests.length }}</small>
+  </li>
+</ul>
