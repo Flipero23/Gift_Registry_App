@@ -11,4 +11,11 @@ export class GuestApi {
     rsvp(guestId: number): Observable<void> {
         return this.http.patch<void>(`${this.baseUrl}/guests/${guestId}/rsvp`, {});
     }
+
+    addToRegistry(registryId: number, data: {
+        name: string;
+        email : string;
+    }) : Observable<void> {
+        return this.http.post<void>(`${this.baseUrl}/guests/registry/${registryId}`, data);
+    }
 }

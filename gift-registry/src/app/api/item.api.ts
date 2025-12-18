@@ -11,4 +11,12 @@ export class ItemApi {
     purchase(itemId: number): Observable<void> {
         return this.http.patch<void>(`${this.baseUrl}/items/${itemId}/purchase`, {});
     }
+
+    addToRegistry(registryId: number, data: {
+        name: string;
+        price : number;
+        quantity: number;
+    }) {
+        return this.http.post<void>(`${this.baseUrl}/items/registry/${registryId}`, data);
+    }
 }

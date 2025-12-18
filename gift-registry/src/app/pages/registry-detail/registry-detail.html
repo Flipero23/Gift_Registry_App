@@ -19,6 +19,38 @@
   <hr />
 
   <h2>Items</h2>
+
+  <form (ngSubmit)="addItem()" style="margin-bottom: 1rem;">
+  <input
+    type="text"
+    placeholder="Item name"
+    [(ngModel)]="newItem.name"
+    name="itemName"
+    required
+  />
+
+  <input
+    type="number"
+    placeholder="Price"
+    [(ngModel)]="newItem.price"
+    name="itemPrice"
+    min="0.01"
+    step="0.01"
+    required
+  />
+
+  <input
+    type="number"
+    placeholder="Quantity"
+    [(ngModel)]="newItem.quantity"
+    name="itemQuantity"
+    min="1"
+    required
+  />
+
+  <button type="submit">➕ Add Item</button>
+</form>
+
   <ul>
     <li *ngFor="let item of registry.items">
       {{ item.name }} — {{ item.quantity }} × {{ item.price }}
@@ -33,6 +65,27 @@
   <hr />
 
   <h2>Guests</h2>
+
+  <form (ngSubmit)="addGuest()" style="margin-bottom: 1rem;">
+  <input
+    type="text"
+    placeholder="Guest name"
+    [(ngModel)]="newGuest.name"
+    name="guestName"
+    required
+  />
+
+  <input
+    type="email"
+    placeholder="Guest email"
+    [(ngModel)]="newGuest.email"
+    name="guestEmail"
+    required
+  />
+
+  <button type="submit">➕ Add Guest</button>
+</form>
+
   <ul>
     <li *ngFor="let guest of registry.guests">
       {{ guest.name }} ({{ guest.email }})

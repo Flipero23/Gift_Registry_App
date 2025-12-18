@@ -6,11 +6,12 @@ import { Registry } from '../../models/registry.models';
 import { ItemApi } from '../../api/item.api';
 import { GuestApi } from '../../api/guest.api';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-registry-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './registry-detail.html',
   styleUrl: './registry-detail.css',
 })
@@ -92,4 +93,55 @@ export class RegistryDetail {
     });
 
   }
+
+
+  newItem = {
+  name: '',
+  price: null as number | null,
+  quantity: null as number | null,
+  };
+  
+  newGuest = {
+  name: '',
+  email: '',
+  };
+
+  addItem(): void {
+    if (!this.newItem.name || this.newItem.price == null || this.newItem.quantity == null || this.newItem.price <= 0 || this.newItem.quantity <= 0) {
+      return;
+    }
+
+    const payload = {
+      name: this.newItem.name,
+      price: this.newItem.price,
+      quantity: this.newItem.quantity,
+    };
+
+    this.itemApi.addToRegistry(this.registryId, payload).subscribe({
+      next: () => {
+        this.newItem = { name: '', price: null, quantity: null };
+        this.loadRegistry();
+      },
+      error: () => {
+        this.error = 'Failed to add item.';
+      },
+    });
+  }
+
+  addGuest(): void {
+    if (!this.newGuest.name || !this.newGuest.email) {
+      return;
+    }
+
+    this.guestApi.addToRegistry(this.registryId, this.newGuest).subscribe({
+      next: () => {
+        this.newGuest = { name: '', email: '' };
+        this.loadRegistry();
+      },
+      error: () => {
+        this.error = 'Failed to add guest.';
+      },
+    });
+  }
+
 }
