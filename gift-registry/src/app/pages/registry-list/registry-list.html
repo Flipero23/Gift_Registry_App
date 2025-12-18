@@ -1,12 +1,10 @@
-<h1>Registries</h1>
-
-<p *ngIf="loading">Loading…</p>
-<p *ngIf="error">{{ error }}</p>
-
 <ul *ngIf="!loading && !error">
   <li *ngFor="let r of registries">
-    <strong>{{ r.eventName }}</strong>
-    — {{ r.ownerName }} — {{ r.date }}
+    <a [routerLink]="['/registries', r.id]">
+      <strong>{{ r.eventName }}</strong>
+      — {{ r.ownerName }} — {{ r.date }}
+    </a>
+
     <br />
     <small>{{ r.description }}</small>
     <br />

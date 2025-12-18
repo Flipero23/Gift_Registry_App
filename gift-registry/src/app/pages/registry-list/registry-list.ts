@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { RegistryApi } from '../../api/registry.api';
 import { Registry } from '../../models/registry.models';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-registry-list',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   standalone: true,
   templateUrl: './registry-list.html',
   styleUrl: './registry-list.css',
