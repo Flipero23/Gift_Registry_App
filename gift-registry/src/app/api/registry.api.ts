@@ -18,4 +18,13 @@ export class RegistryApi {
     getById(id: number): Observable<Registry> {
         return this.http.get<Registry>(`${this.baseUrl}/registries/${id}`);
     }
+
+    create(data: Partial<Registry>): Observable<Registry> {
+        return this.http.post<Registry>(`${this.baseUrl}/registries`, data);
+    }
+
+    update(id: number, data: Partial<Registry>): Observable<Registry> {
+        return this.http.put<Registry>(`${this.baseUrl}/registries/${id}`, data);
+    }
+
 }

@@ -14,6 +14,10 @@
     <li *ngFor="let item of registry.items">
       {{ item.name }} — {{ item.quantity }} × {{ item.price }}
       <span *ngIf="item.purchased"> ✅ Purchased</span>
+
+      <button *ngIf="!item.purchased" (click)="markPurchased(item.id)">
+        Mark as Purchased
+      </button>
     </li>
   </ul>
 
@@ -24,6 +28,9 @@
     <li *ngFor="let guest of registry.guests">
       {{ guest.name }} ({{ guest.email }})
       <span *ngIf="guest.hasRSVP"> ✅ RSVP</span>
+      <button *ngIf="!guest.hasRSVP" (click)="markRsvp(guest.id)">
+        Mark RSVP
+      </button>
     </li>
   </ul>
 </section>

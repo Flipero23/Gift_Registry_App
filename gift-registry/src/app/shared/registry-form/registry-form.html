@@ -1,0 +1,35 @@
+<form (ngSubmit)="submit()" [formGroup]="form">
+  <label>
+    Event name
+    <input formControlName="eventName" />
+  </label>
+
+  <div *ngIf="form.controls.eventName.touched && form.controls.eventName.invalid">
+    Event name is required
+  </div>
+
+  <label>
+    Owner name
+    <input formControlName="ownerName" />
+  </label>
+
+  <div *ngIf="form.controls.ownerName.touched && form.controls.ownerName.invalid">
+    Owner name is required
+  </div>
+
+  <label>
+    Date
+    <input type="date" formControlName="date" />
+  </label>
+
+  <div *ngIf="form.controls.date.touched && form.controls.date.invalid">
+    Date is required
+  </div>
+
+  <label>
+    Description
+    <textarea formControlName="description"></textarea>
+  </label>
+
+  <button type="submit">Save</button>
+</form>

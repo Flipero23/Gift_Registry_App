@@ -3,6 +3,8 @@ import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RegistryApi } from '../../api/registry.api';
 import { Registry } from '../../models/registry.models';
+import { ItemApi } from '../../api/item.api';
+import { GuestApi } from '../../api/guest.api';
 
 @Component({
   selector: 'app-registry-detail',
@@ -14,6 +16,10 @@ import { Registry } from '../../models/registry.models';
 export class RegistryDetail {
   private route = inject(ActivatedRoute);
   private registryApi = inject(RegistryApi);
+  private itemApi = inject(ItemApi);
+  private guestApi = inject(GuestApi);
+
+  private registryId!: number;
 
   registry: Registry | null = null;
   loading = false;
@@ -28,8 +34,15 @@ export class RegistryDetail {
       return;
     }
 
+    this.registryId = id;
+    this.loadRegistry();
+  }
+
+  private loadRegistry(): void {
     this.loading = true;
-    this.registryApi.getById(id).subscribe({
+    this.error = null;
+
+    this.registryApi.getById(this.registryId).subscribe({
       next: (data) => {
         this.registry = data;
         this.loading = false;
@@ -37,6 +50,24 @@ export class RegistryDetail {
       error: () => {
         this.error = 'Registry not found or failed to load.';
         this.loading = false;
+      },
+    });
+  }
+
+  markPurchased(itemId: number): void {
+    this.itemApi.purchase(itemId).subscribe({
+      next: () => this.loadRegistry(),
+      error: () => {
+        this.error = 'Failed to mark item as purchased.';
+      },
+    });
+  }
+
+  markRsvp(guestId: number): void {
+    this.guestApi.rsvp(guestId).subscribe({
+      next: () => this.loadRegistry(),
+      error: () => {
+        this.error = 'Failed to mark RSVP.';
       },
     });
   }
