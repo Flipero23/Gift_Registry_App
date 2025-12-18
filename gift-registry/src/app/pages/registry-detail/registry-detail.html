@@ -1,98 +1,177 @@
-<p *ngIf="loading">Loading registry…</p>
-<p *ngIf="error">{{ error }}</p>
+<div class="detail-container">
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading registry…</p>
+  </div>
 
-<section *ngIf="registry && !loading">
-  <a [routerLink]="['/registries', registry.id, 'edit']">
-    ✏️ Edit Registry
-  </a>
+  <div *ngIf="error" class="error-state">
+    <p>❌ {{ error }}</p>
+  </div>
 
-  <button (click)="deleteRegistry()" style="color: red; margin-left: 10px;">
-  🗑 Delete Registry
-  </button>
+  <section *ngIf="registry && !loading" class="registry-detail">
+    <div class="detail-header">
+      <div class="header-content">
+        <h1 class="detail-title">{{ registry.eventName }}</h1>
+        <div class="detail-meta">
+          <div class="meta-item">
+            <span class="meta-icon">👤</span>
+            <span class="meta-label">Owner:</span>
+            <span class="meta-value">{{ registry.ownerName }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">📅</span>
+            <span class="meta-label">Date:</span>
+            <span class="meta-value">{{ registry.date }}</span>
+          </div>
+        </div>
+        <p class="detail-description" *ngIf="registry.description">
+          {{ registry.description }}
+        </p>
+      </div>
+      
+      <div class="header-actions">
+        <a [routerLink]="['/registries', registry.id, 'edit']" class="btn btn-secondary">
+          <span>✏️</span> Edit Registry
+        </a>
+        <button (click)="deleteRegistry()" class="btn btn-danger">
+          <span>🗑</span> Delete
+        </button>
+      </div>
+    </div>
 
+    <div class="detail-sections">
+      <section class="detail-section">
+        <div class="section-header">
+          <h2>
+            <span class="section-icon">📦</span>
+            Items
+            <span class="section-count">({{ registry.items.length }})</span>
+          </h2>
+        </div>
 
-  <h1>{{ registry.eventName }}</h1>
-  <p><strong>Owner:</strong> {{ registry.ownerName }}</p>
-  <p><strong>Date:</strong> {{ registry.date }}</p>
-  <p><strong>Description:</strong> {{ registry.description }}</p>
+        <form (ngSubmit)="addItem()" class="add-form">
+          <div class="form-row">
+            <input
+              type="text"
+              placeholder="Item name"
+              [(ngModel)]="newItem.name"
+              name="itemName"
+              class="form-input"
+              required
+            />
+            <input
+              type="number"
+              placeholder="Price"
+              [(ngModel)]="newItem.price"
+              name="itemPrice"
+              class="form-input"
+              min="0.01"
+              step="0.01"
+              required
+            />
+            <input
+              type="number"
+              placeholder="Quantity"
+              [(ngModel)]="newItem.quantity"
+              name="itemQuantity"
+              class="form-input"
+              min="1"
+              required
+            />
+            <button type="submit" class="btn btn-primary">
+              <span>➕</span> Add Item
+            </button>
+          </div>
+        </form>
 
-  <hr />
+        <div class="items-list" *ngIf="registry.items.length > 0">
+          <div *ngFor="let item of registry.items" class="item-card" [class.purchased]="item.purchased">
+            <div class="item-content">
+              <div class="item-info">
+                <h3 class="item-name">{{ item.name }}</h3>
+                <div class="item-details">
+                  <span class="item-quantity">{{ item.quantity }} ×</span>
+                  <span class="item-price">${{ item.price | number:'1.2-2' }}</span>
+                  <span class="item-total">= ${{ (item.quantity * item.price) | number:'1.2-2' }}</span>
+                </div>
+              </div>
+              <div class="item-status" *ngIf="item.purchased">
+                <span class="status-badge purchased-badge">✅ Purchased</span>
+              </div>
+            </div>
+            <button 
+              *ngIf="!item.purchased" 
+              (click)="markPurchased(item.id)"
+              class="btn btn-sm btn-success"
+            >
+              Mark as Purchased
+            </button>
+          </div>
+        </div>
 
-  <h2>Items</h2>
+        <div *ngIf="registry.items.length === 0" class="empty-list">
+          <p>No items yet. Add your first item above!</p>
+        </div>
+      </section>
 
-  <form (ngSubmit)="addItem()" style="margin-bottom: 1rem;">
-  <input
-    type="text"
-    placeholder="Item name"
-    [(ngModel)]="newItem.name"
-    name="itemName"
-    required
-  />
+      <section class="detail-section">
+        <div class="section-header">
+          <h2>
+            <span class="section-icon">👥</span>
+            Guests
+            <span class="section-count">({{ registry.guests.length }})</span>
+          </h2>
+        </div>
 
-  <input
-    type="number"
-    placeholder="Price"
-    [(ngModel)]="newItem.price"
-    name="itemPrice"
-    min="0.01"
-    step="0.01"
-    required
-  />
+        <form (ngSubmit)="addGuest()" class="add-form">
+          <div class="form-row">
+            <input
+              type="text"
+              placeholder="Guest name"
+              [(ngModel)]="newGuest.name"
+              name="guestName"
+              class="form-input"
+              required
+            />
+            <input
+              type="email"
+              placeholder="Guest email"
+              [(ngModel)]="newGuest.email"
+              name="guestEmail"
+              class="form-input"
+              required
+            />
+            <button type="submit" class="btn btn-primary">
+              <span>➕</span> Add Guest
+            </button>
+          </div>
+        </form>
 
-  <input
-    type="number"
-    placeholder="Quantity"
-    [(ngModel)]="newItem.quantity"
-    name="itemQuantity"
-    min="1"
-    required
-  />
+        <div class="guests-list" *ngIf="registry.guests.length > 0">
+          <div *ngFor="let guest of registry.guests" class="guest-card" [class.rsvped]="guest.hasRSVP">
+            <div class="guest-content">
+              <div class="guest-info">
+                <h3 class="guest-name">{{ guest.name }}</h3>
+                <p class="guest-email">{{ guest.email }}</p>
+              </div>
+              <div class="guest-status" *ngIf="guest.hasRSVP">
+                <span class="status-badge rsvp-badge">✅ RSVP</span>
+              </div>
+            </div>
+            <button 
+              *ngIf="!guest.hasRSVP" 
+              (click)="markRsvp(guest.id)"
+              class="btn btn-sm btn-success"
+            >
+              Mark RSVP
+            </button>
+          </div>
+        </div>
 
-  <button type="submit">➕ Add Item</button>
-</form>
-
-  <ul>
-    <li *ngFor="let item of registry.items">
-      {{ item.name }} — {{ item.quantity }} × {{ item.price }}
-      <span *ngIf="item.purchased"> ✅ Purchased</span>
-
-      <button *ngIf="!item.purchased" (click)="markPurchased(item.id)">
-        Mark as Purchased
-      </button>
-    </li>
-  </ul>
-
-  <hr />
-
-  <h2>Guests</h2>
-
-  <form (ngSubmit)="addGuest()" style="margin-bottom: 1rem;">
-  <input
-    type="text"
-    placeholder="Guest name"
-    [(ngModel)]="newGuest.name"
-    name="guestName"
-    required
-  />
-
-  <input
-    type="email"
-    placeholder="Guest email"
-    [(ngModel)]="newGuest.email"
-    name="guestEmail"
-    required
-  />
-
-  <button type="submit">➕ Add Guest</button>
-</form>
-
-  <ul>
-    <li *ngFor="let guest of registry.guests">
-      {{ guest.name }} ({{ guest.email }})
-      <span *ngIf="guest.hasRSVP"> ✅ RSVP</span>
-      <button *ngIf="!guest.hasRSVP" (click)="markRsvp(guest.id)">
-        Mark RSVP
-      </button>
-    </li>
-  </ul>
-</section>
+        <div *ngIf="registry.guests.length === 0" class="empty-list">
+          <p>No guests yet. Add your first guest above!</p>
+        </div>
+      </section>
+    </div>
+  </section>
+</div>

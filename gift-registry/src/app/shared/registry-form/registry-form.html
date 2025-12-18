@@ -1,35 +1,77 @@
-<form (ngSubmit)="submit()" [formGroup]="form">
-  <label>
-    Event name
-    <input formControlName="eventName" />
-  </label>
-
-  <div *ngIf="form.controls.eventName.touched && form.controls.eventName.invalid">
-    Event name is required
+<form (ngSubmit)="submit()" [formGroup]="form" class="registry-form">
+  <div class="form-group">
+    <label class="form-label">
+      Event name
+      <span class="required">*</span>
+    </label>
+    <input 
+      formControlName="eventName" 
+      class="form-input"
+      placeholder="e.g., Wedding Registry, Birthday Party"
+    />
+    <div 
+      *ngIf="form.controls.eventName.touched && form.controls.eventName.invalid" 
+      class="error-message"
+    >
+      Event name is required
+    </div>
   </div>
 
-  <label>
-    Owner name
-    <input formControlName="ownerName" />
-  </label>
-
-  <div *ngIf="form.controls.ownerName.touched && form.controls.ownerName.invalid">
-    Owner name is required
+  <div class="form-group">
+    <label class="form-label">
+      Owner name
+      <span class="required">*</span>
+    </label>
+    <input 
+      formControlName="ownerName" 
+      class="form-input"
+      placeholder="Your full name"
+    />
+    <div 
+      *ngIf="form.controls.ownerName.touched && form.controls.ownerName.invalid" 
+      class="error-message"
+    >
+      Owner name is required
+    </div>
   </div>
 
-  <label>
-    Date
-    <input type="date" formControlName="date" />
-  </label>
-
-  <div *ngIf="form.controls.date.touched && form.controls.date.invalid">
-    Date is required
+  <div class="form-group">
+    <label class="form-label">
+      Date
+      <span class="required">*</span>
+    </label>
+    <input 
+      type="date" 
+      formControlName="date" 
+      class="form-input"
+    />
+    <div 
+      *ngIf="form.controls.date.touched && form.controls.date.invalid" 
+      class="error-message"
+    >
+      Date is required
+    </div>
   </div>
 
-  <label>
-    Description
-    <textarea formControlName="description"></textarea>
-  </label>
+  <div class="form-group">
+    <label class="form-label">
+      Description
+    </label>
+    <textarea 
+      formControlName="description"
+      class="form-textarea"
+      placeholder="Tell your guests about your event..."
+      rows="4"
+    ></textarea>
+  </div>
 
-  <button type="submit">Save</button>
+  <div class="form-actions">
+    <button 
+      type="submit" 
+      class="btn btn-primary btn-large"
+      [disabled]="form.invalid"
+    >
+      <span>💾</span> Save Registry
+    </button>
+  </div>
 </form>

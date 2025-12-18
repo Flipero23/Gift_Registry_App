@@ -1,1 +1,21 @@
-<p>registry-edit works!</p>
+<div class="edit-container">
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading registry…</p>
+  </div>
+
+  <div *ngIf="error" class="error-state">
+    <p>❌ {{ error }}</p>
+  </div>
+
+  <div *ngIf="registry && !loading">
+    <div class="edit-header">
+      <h1>Edit Registry</h1>
+      <p class="subtitle">Update your registry information</p>
+    </div>
+    <app-registry-form
+      [initialData]="registry"
+      (submitForm)="save($event)"
+    ></app-registry-form>
+  </div>
+</div>

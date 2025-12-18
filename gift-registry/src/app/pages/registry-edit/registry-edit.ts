@@ -9,18 +9,8 @@ import { Registry } from '../../models/registry.models';
   selector: 'app-registry-edit',
   standalone: true,
   imports: [CommonModule, RegistryForm],
-  template: `
-    <h1>Edit Registry</h1>
-
-    <p *ngIf="loading">Loading registry…</p>
-    <p *ngIf="error">{{ error }}</p>
-
-    <app-registry-form
-      *ngIf="registry"
-      [initialData]="registry"
-      (submitForm)="save($event)"
-    ></app-registry-form>
-  `,
+  templateUrl: './registry-edit.html',
+  styleUrls: ['./registry-edit.css'],
 })
 export class RegistryEdit implements OnInit{
   private route = inject(ActivatedRoute);

@@ -7,10 +7,8 @@ import { RegistryForm } from "../../shared/registry-form/registry-form";
   selector: 'app-registry-create',
   standalone: true,
   imports: [RegistryForm],
-  template: `
-    <h1>Create Registry</h1>
-    <app-registry-form (submitForm)="create($event)"></app-registry-form>
-  `,
+  templateUrl: './registry-create.html',
+  styleUrls: ['./registry-create.css'],
 })
 export class RegistryCreate {
   private api = inject(RegistryApi);

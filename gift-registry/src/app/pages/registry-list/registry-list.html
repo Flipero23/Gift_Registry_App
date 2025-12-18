@@ -1,13 +1,52 @@
-<ul *ngIf="!loading && !error">
-  <li *ngFor="let r of registries">
-    <a [routerLink]="['/registries', r.id]">
-      <strong>{{ r.eventName }}</strong>
-      — {{ r.ownerName }} — {{ r.date }}
-    </a>
+<div class="registry-list-container">
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading registries...</p>
+  </div>
 
-    <br />
-    <small>{{ r.description }}</small>
-    <br />
-    <small>Items: {{ r.items.length }} | Guests: {{ r.guests.length }}</small>
-  </li>
-</ul>
+  <div *ngIf="error" class="error-state">
+    <p>❌ {{ error }}</p>
+  </div>
+
+  <div *ngIf="!loading && !error && registries.length === 0" class="empty-state">
+    <div class="empty-icon">🎁</div>
+    <h2>No registries yet</h2>
+    <p>Create your first gift registry to get started!</p>
+    <a routerLink="/registries/new" class="btn btn-primary">Create Registry</a>
+  </div>
+
+  <div *ngIf="!loading && !error && registries.length > 0" class="registry-grid">
+    <div *ngFor="let r of registries" class="registry-card">
+      <a [routerLink]="['/registries', r.id]" class="card-link">
+        <div class="card-header">
+          <h3 class="card-title">{{ r.eventName }}</h3>
+          <div class="card-badge">{{ r.date }}</div>
+        </div>
+        
+        <div class="card-body">
+          <p class="card-owner">
+            <span class="icon">👤</span>
+            {{ r.ownerName }}
+          </p>
+          
+          <p class="card-description" *ngIf="r.description">
+            {{ r.description }}
+          </p>
+        </div>
+        
+        <div class="card-footer">
+          <div class="card-stat">
+            <span class="stat-icon">📦</span>
+            <span class="stat-value">{{ r.items.length }}</span>
+            <span class="stat-label">Items</span>
+          </div>
+          <div class="card-stat">
+            <span class="stat-icon">👥</span>
+            <span class="stat-value">{{ r.guests.length }}</span>
+            <span class="stat-label">Guests</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
