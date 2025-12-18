@@ -2,6 +2,9 @@
 <p *ngIf="error">{{ error }}</p>
 
 <section *ngIf="registry && !loading">
+  <a [routerLink]="['/registries', registry.id, 'edit']">
+    ✏️ Edit Registry
+  </a>
   <h1>{{ registry.eventName }}</h1>
   <p><strong>Owner:</strong> {{ registry.ownerName }}</p>
   <p><strong>Date:</strong> {{ registry.date }}</p>

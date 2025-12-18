@@ -5,11 +5,12 @@ import { RegistryApi } from '../../api/registry.api';
 import { Registry } from '../../models/registry.models';
 import { ItemApi } from '../../api/item.api';
 import { GuestApi } from '../../api/guest.api';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-registry-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './registry-detail.html',
   styleUrl: './registry-detail.css',
 })
