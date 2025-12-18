@@ -7,27 +7,42 @@
 
 :root {
   --primary-color: #123DC9;
-  --primary-dark: #6e75b3;
-  --primary-light: #6e75b3;
+  --primary-dark: #0d2fa0;
+  --primary-light: #4a63d9;
+  --primary-lighter: #7a8fe8;
   --secondary-color: #61c585;
-  --brand-color: #48989D;  /* Separate color for navbar brand - change this to your preferred color */
-  --brand-color-dark: #2E6CC5;  /* Darker shade for brand hover states */
+  --secondary-dark: #4fa86f;
+  --secondary-light: #7dd39f;
+  --brand-color: #48989D;
+  --brand-color-dark: #2E6CC5;
   --success-color: #10b981;
   --danger-color: #ef4444;
   --warning-color: #f59e0b;
-  --background: #f8fafc;
+  --background: #f0f4f8;
+  --background-gradient: linear-gradient(135deg, #f0f4f8 0%, #e8f0f5 50%, #f5f9fc 100%);
   --surface: #ffffff;
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
+  --surface-elevated: #ffffff;
+  --text-primary: #1a202c;
+  --text-secondary: #4a5568;
+  --text-tertiary: #718096;
   --border-color: #e2e8f0;
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --border-light: #f1f5f9;
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-colored: 0 10px 30px -5px rgba(18, 61, 201, 0.3);
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -36,10 +51,46 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--background);
+  background: var(--background-gradient);
+  background-attachment: fixed;
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated background pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(18, 61, 201, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(97, 197, 133, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(72, 152, 157, 0.02) 0%, transparent 50%);
+  background-size: 100% 100%;
+  pointer-events: none;
+  z-index: 0;
+  animation: backgroundShift 20s ease-in-out infinite;
+}
+
+@keyframes backgroundShift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-2%, -2%) scale(1.05);
+  }
+}
+
+/* Ensure content is above background */
+body > * {
+  position: relative;
+  z-index: 1;
 }
 
 h1, h2, h3, h4, h5, h6 {

@@ -1,11 +1,32 @@
 .registry-form {
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto;
   background: var(--surface);
-  padding: 2.5rem;
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-color);
+  padding: 3rem;
+  border-radius: var(--radius-2xl);
+  box-shadow: 
+    var(--shadow-xl),
+    0 0 0 1px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--border-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.registry-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    var(--primary-color), 
+    var(--secondary-color), 
+    var(--primary-color)
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
 }
 
 .form-group {
@@ -28,21 +49,36 @@
 .form-input,
 .form-textarea {
   width: 100%;
-  padding: 0.875rem 1rem;
+  padding: 1rem 1.25rem;
   border: 2px solid var(--border-color);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   font-size: 1rem;
-  transition: all 0.2s ease;
-  background: var(--surface);
+  transition: all var(--transition-base);
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0.9), 
+    var(--surface)
+  );
   color: var(--text-primary);
   font-family: inherit;
+  position: relative;
 }
 
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  box-shadow: 
+    0 0 0 4px rgba(18, 61, 201, 0.1),
+    0 4px 6px rgba(18, 61, 201, 0.1),
+    inset 0 1px 2px rgba(18, 61, 201, 0.05);
+  background: var(--surface);
+  transform: translateY(-1px);
+}
+
+.form-input:hover:not(:focus),
+.form-textarea:hover:not(:focus) {
+  border-color: var(--primary-light);
+  box-shadow: 0 2px 4px rgba(18, 61, 201, 0.05);
 }
 
 .form-input::placeholder,
@@ -77,8 +113,28 @@
 }
 
 .btn-large {
-  padding: 1rem 2rem;
+  padding: 1.125rem 2.5rem;
   font-size: 1.125rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-large::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-large:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .btn:disabled {
