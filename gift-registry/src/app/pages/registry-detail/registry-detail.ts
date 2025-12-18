@@ -72,4 +72,24 @@ export class RegistryDetail {
       },
     });
   }
+
+  deleteRegistry(): void {
+    const confirmed = confirm
+    ('Are you sure you want to delete this registry? This action cannot be undone.'
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.registryApi.delete(this.registryId).subscribe({
+      next: () => {
+        window.location.href = '/registries';
+      },
+      error: () => {
+        this.error = 'Failed to delete registry.';
+      },
+    });
+
+  }
 }

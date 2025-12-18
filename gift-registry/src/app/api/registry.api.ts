@@ -27,4 +27,8 @@ export class RegistryApi {
         return this.http.put<Registry>(`${this.baseUrl}/registries/${id}`, data);
     }
 
+    delete(id: number) {
+        return this.http.delete(`${this.baseUrl}/registries/${id}`);
+    }
+
 }

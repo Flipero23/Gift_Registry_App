@@ -5,6 +5,12 @@
   <a [routerLink]="['/registries', registry.id, 'edit']">
     ✏️ Edit Registry
   </a>
+
+  <button (click)="deleteRegistry()" style="color: red; margin-left: 10px;">
+  🗑 Delete Registry
+  </button>
+
+
   <h1>{{ registry.eventName }}</h1>
   <p><strong>Owner:</strong> {{ registry.ownerName }}</p>
   <p><strong>Date:</strong> {{ registry.date }}</p>
