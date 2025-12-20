@@ -17,45 +17,45 @@
 
 
   <div *ngIf="!loading && !error && registries.length > 0">
-    <section class="filters" style="margin-bottom: 1.5rem;">
-      <h2 style="margin-bottom: 0.75rem;">Search & Filters</h2>
+    <section class="filters">
+      <h2 class="filters-title">Search & Filters</h2>
 
-      <div
-        style="display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));"
-      >
-        <div>
-          <label style="display:block; margin-bottom: 0.25rem;">Search</label>
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label class="filter-label">Search</label>
           <input
             type="text"
+            class="filter-input"
             placeholder="Search by event, owner, description..."
             [(ngModel)]="searchText"
             name="searchText"
           />
         </div>
 
-        <div>
-          <label style="display:block; margin-bottom: 0.25rem;">Owner</label>
+        <div class="filter-group">
+          <label class="filter-label">Owner</label>
           <input
             type="text"
+            class="filter-input"
             placeholder="Filter by owner..."
             [(ngModel)]="ownerFilter"
             name="ownerFilter"
           />
         </div>
 
-        <div>
-          <label style="display:block; margin-bottom: 0.25rem;">Date from</label>
-          <input type="date" [(ngModel)]="dateFrom" name="dateFrom" />
+        <div class="filter-group">
+          <label class="filter-label">Date from</label>
+          <input type="date" class="filter-input filter-date" [(ngModel)]="dateFrom" name="dateFrom" />
         </div>
 
-        <div>
-          <label style="display:block; margin-bottom: 0.25rem;">Date to</label>
-          <input type="date" [(ngModel)]="dateTo" name="dateTo" />
+        <div class="filter-group">
+          <label class="filter-label">Date to</label>
+          <input type="date" class="filter-input filter-date" [(ngModel)]="dateTo" name="dateTo" />
         </div>
 
-        <div>
-          <label style="display:block; margin-bottom: 0.25rem;">Sort</label>
-          <select [(ngModel)]="sortBy" name="sortBy">
+        <div class="filter-group">
+          <label class="filter-label">Sort</label>
+          <select class="filter-select" [(ngModel)]="sortBy" name="sortBy">
             <option value="dateAsc">Date (oldest → newest)</option>
             <option value="dateDesc">Date (newest → oldest)</option>
             <option value="nameAsc">Name (A → Z)</option>
@@ -63,22 +63,21 @@
           </select>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 0.5rem; padding-top: 1.25rem;">
-          <input type="checkbox" [(ngModel)]="purchasedOnly" name="purchasedOnly" />
-          <label>Purchased-only registries</label>
+        <div class="filter-group filter-checkbox-group">
+          <label class="filter-checkbox-label">
+            <input type="checkbox" class="filter-checkbox" [(ngModel)]="purchasedOnly" name="purchasedOnly" />
+            <span>Purchased-only registries</span>
+          </label>
         </div>
       </div>
 
-      <div
-      style="margin-top: 0.75rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;"
-      >
-      <small>Showing {{ visibleRegistries.length }} registries</small>
-
-      <button type="button" (click)="resetFilters()">
-        🔄 Reset filters
-      </button>
-    </div>
-  </section>
+      <div class="filters-footer">
+        <small class="filters-count">Showing {{ visibleRegistries.length }} registries</small>
+        <button type="button" class="btn btn-secondary btn-sm" (click)="resetFilters()">
+          🔄 Reset filters
+        </button>
+      </div>
+    </section>
 
     
     <div *ngIf="visibleRegistries.length === 0" class="empty-state">
