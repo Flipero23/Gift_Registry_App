@@ -22,6 +22,7 @@ A full-stack web application for managing gift registries, allowing users to cre
 - [Contributing](#contributing)
 - [License](#license)
 
+<a id="overview"></a>
 ## 🎯 Overview
 
 The Gift Registry Application is a modern web application that enables users to:
@@ -32,6 +33,7 @@ The Gift Registry Application is a modern web application that enables users to:
 
 The application follows a RESTful architecture with a Spring Boot backend and an Angular frontend, providing a clean separation of concerns and a scalable codebase.
 
+<a id="features"></a>
 ## ✨ Features
 
 - **Registry Management**
@@ -64,6 +66,7 @@ The application follows a RESTful architecture with a Spring Boot backend and an
   - API key authentication
   - CORS configuration for secure cross-origin requests
 
+<a id="technology-stack"></a>
 ## 🛠 Technology Stack
 
 ### Backend
@@ -85,6 +88,7 @@ The application follows a RESTful architecture with a Spring Boot backend and an
 - **Karma & Jasmine** - Testing framework and test runner
 - **CSS3** - Modern styling with Grid, Flexbox, and custom properties
 
+<a id="project-structure"></a>
 ## 📁 Project Structure
 
 ```
@@ -185,6 +189,7 @@ Gift_Registry_App-1/
         └── README.md                                         # Frontend-specific docs
 ```
 
+<a id="prerequisites"></a>
 ## 📋 Prerequisites
 
 Before you begin, ensure you have the following installed:
@@ -194,6 +199,7 @@ Before you begin, ensure you have the following installed:
 - **Maven** 3.6+ (or use the included Maven wrapper)
 - **Angular CLI** (will be installed via npm)
 
+<a id="installation--setup"></a>
 ## 🚀 Installation & Setup
 
 ### Backend Setup
@@ -262,6 +268,7 @@ Before you begin, ensure you have the following installed:
    
    Update the `baseUrl` property in each service, or consider using environment variables for different environments.
 
+<a id="running-the-application"></a>
 ## 🏃 Running the Application
 
 ### Running the Backend
@@ -352,6 +359,7 @@ ng generate service service-name
 - API services are singletons (providedIn: 'root')
 - All HTTP requests automatically include API key via interceptor
 
+<a id="api-documentation"></a>
 ## 📚 API Documentation
 
 The backend provides a RESTful API with the following endpoints. All requests require an `X-API-KEY` header with the value `1234`.
@@ -520,6 +528,7 @@ DELETE /guests/{id}
 X-API-KEY: 1234
 ```
 
+<a id="frontend-architecture"></a>
 ## 🎨 Frontend Architecture
 
 The frontend is built with **Angular 20.3.0** using modern Angular features including standalone components, signals, and the new control flow syntax. The application follows a component-based architecture with clear separation of concerns.
@@ -767,6 +776,7 @@ The application uses two form approaches:
 - **Modern Angular APIs**: Using latest Angular features
 - **Component isolation**: Each component is self-contained
 
+<a id="frontend-routes"></a>
 ## 🗺 Frontend Routes
 
 The Angular application uses the following routes:
@@ -782,6 +792,7 @@ The Angular application uses the following routes:
   - Features: Edit existing registry information
 - `/**` - Catch-all route (redirects to `/registries`)
 
+<a id="security"></a>
 ## 🔒 Security
 
 ### API Key Authentication
@@ -799,6 +810,7 @@ CORS is configured to allow requests from `http://localhost:4200` (the Angular d
 - Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
 - Headers: X-API-KEY, Content-Type
 
+<a id="database"></a>
 ## 💾 Database
 
 The application uses **H2 Database** (in-memory) for development. The database configuration is in `application.properties`:
@@ -822,6 +834,7 @@ spring.h2.console.enabled=true
 - One Registry can have many Guests (One-to-Many)
 - Items and Guests have a Many-to-One relationship with Registry
 
+<a id="deployment"></a>
 ## 🚢 Deployment
 
 ### Backend Deployment (Heroku)
@@ -935,6 +948,7 @@ The backend is configured for Heroku deployment:
    - Test all major features (CRUD operations)
    - Check mobile responsiveness
 
+<a id="testing"></a>
 ## 🧪 Testing
 
 ### Backend Tests
@@ -993,6 +1007,7 @@ describe('RegistryListComponent', () => {
 });
 ```
 
+<a id="additional-notes"></a>
 ## 📝 Additional Notes
 
 ### Frontend-Specific Notes
@@ -1032,6 +1047,7 @@ describe('RegistryListComponent', () => {
 - Use browser DevTools Network tab to debug API calls
 - Check browser console for runtime errors
 
+<a id="contributing"></a>
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -1040,6 +1056,7 @@ describe('RegistryListComponent', () => {
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+<a id="license"></a>
 ## 📄 License
 
 This project is open source and available for educational purposes.
