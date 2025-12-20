@@ -9,9 +9,11 @@
   </div>
 
   <section *ngIf="registry && !loading" class="registry-detail">
+    <!-- ================= HEADER ================= -->
     <div class="detail-header">
       <div class="header-content">
         <h1 class="detail-title">{{ registry.eventName }}</h1>
+
         <div class="detail-meta">
           <div class="meta-item">
             <span class="meta-icon">👤</span>
@@ -24,11 +26,12 @@
             <span class="meta-value">{{ registry.date }}</span>
           </div>
         </div>
+
         <p class="detail-description" *ngIf="registry.description">
           {{ registry.description }}
         </p>
       </div>
-      
+
       <div class="header-actions">
         <a [routerLink]="['/registries', registry.id, 'edit']" class="btn btn-secondary">
           <span>✏️</span> Edit Registry
@@ -39,7 +42,44 @@
       </div>
     </div>
 
+    <!-- ================= DASHBOARD (ASSIGNMENT 11) ================= -->
+    <div class="stats-dashboard">
+      <h2 class="stats-title">Dashboard</h2>
+
+      <div class="stats-grid">
+        <!-- Items Purchased -->
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Items purchased</span>
+            <span class="stat-value">
+              {{ purchasedItems }} / {{ totalItems }} ({{ purchasePercent }}%)
+            </span>
+          </div>
+
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="purchasePercent"></div>
+          </div>
+        </div>
+
+        <!-- Guests RSVP -->
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Guests RSVP</span>
+            <span class="stat-value">
+              {{ rsvpGuests }} / {{ totalGuests }} ({{ rsvpPercent }}%)
+            </span>
+          </div>
+
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="rsvpPercent"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= ITEMS & GUESTS ================= -->
     <div class="detail-sections">
+      <!-- ================= ITEMS ================= -->
       <section class="detail-section">
         <div class="section-header">
           <h2>
@@ -85,22 +125,30 @@
         </form>
 
         <div class="items-list" *ngIf="registry.items.length > 0">
-          <div *ngFor="let item of registry.items" class="item-card" [class.purchased]="item.purchased">
+          <div
+            *ngFor="let item of registry.items"
+            class="item-card"
+            [class.purchased]="item.purchased"
+          >
             <div class="item-content">
               <div class="item-info">
                 <h3 class="item-name">{{ item.name }}</h3>
                 <div class="item-details">
                   <span class="item-quantity">{{ item.quantity }} ×</span>
                   <span class="item-price">${{ item.price | number:'1.2-2' }}</span>
-                  <span class="item-total">= ${{ (item.quantity * item.price) | number:'1.2-2' }}</span>
+                  <span class="item-total">
+                    = ${{ (item.quantity * item.price) | number:'1.2-2' }}
+                  </span>
                 </div>
               </div>
+
               <div class="item-status" *ngIf="item.purchased">
                 <span class="status-badge purchased-badge">✅ Purchased</span>
               </div>
             </div>
-            <button 
-              *ngIf="!item.purchased" 
+
+            <button
+              *ngIf="!item.purchased"
               (click)="markPurchased(item.id)"
               class="btn btn-sm btn-success"
             >
@@ -114,6 +162,7 @@
         </div>
       </section>
 
+      <!-- ================= GUESTS ================= -->
       <section class="detail-section">
         <div class="section-header">
           <h2>
@@ -148,18 +197,24 @@
         </form>
 
         <div class="guests-list" *ngIf="registry.guests.length > 0">
-          <div *ngFor="let guest of registry.guests" class="guest-card" [class.rsvped]="guest.hasRSVP">
+          <div
+            *ngFor="let guest of registry.guests"
+            class="guest-card"
+            [class.rsvped]="guest.hasRSVP"
+          >
             <div class="guest-content">
               <div class="guest-info">
                 <h3 class="guest-name">{{ guest.name }}</h3>
                 <p class="guest-email">{{ guest.email }}</p>
               </div>
+
               <div class="guest-status" *ngIf="guest.hasRSVP">
                 <span class="status-badge rsvp-badge">✅ RSVP</span>
               </div>
             </div>
-            <button 
-              *ngIf="!guest.hasRSVP" 
+
+            <button
+              *ngIf="!guest.hasRSVP"
               (click)="markRsvp(guest.id)"
               class="btn btn-sm btn-success"
             >

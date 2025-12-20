@@ -144,4 +144,29 @@ export class RegistryDetail {
     });
   }
 
+  get totalItems(): number {
+    return this.registry ? this.registry.items.length : 0;
+  }
+
+  get purchasedItems(): number {
+    return this.registry ? this.registry.items.filter(i => i.purchased).length : 0;
+  }
+
+  get purchasePercent(): number {
+    if (!this.registry || this.totalItems === 0) return 0;
+    return Math.round((this.purchasedItems / this.totalItems) * 100);
+  }
+
+  get totalGuests(): number {
+    return this.registry ? this.registry.guests.length : 0;
+  }
+
+  get rsvpGuests(): number {
+    return this.registry ? this.registry.guests.filter(g => g.hasRSVP).length : 0;
+  }
+
+  get rsvpPercent(): number {
+    if (!this.registry || this.totalGuests === 0) return 0;
+    return Math.round((this.rsvpGuests / this.totalGuests) * 100);
+  }
 }
