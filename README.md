@@ -12,11 +12,15 @@ A full-stack web application for managing gift registries, allowing users to cre
 - [Installation & Setup](#installation--setup)
 - [Running the Application](#running-the-application)
 - [API Documentation](#api-documentation)
+- [Frontend Architecture](#frontend-architecture)
 - [Frontend Routes](#frontend-routes)
 - [Security](#security)
 - [Database](#database)
 - [Deployment](#deployment)
+- [Testing](#testing)
+- [Additional Notes](#additional-notes)
 - [Contributing](#contributing)
+- [License](#license)
 
 ## 🎯 Overview
 
