@@ -15,38 +15,112 @@
     <a routerLink="/registries/new" class="btn btn-primary">Create Registry</a>
   </div>
 
-  <div *ngIf="!loading && !error && registries.length > 0" class="registry-grid">
-    <div *ngFor="let r of registries" class="registry-card">
-      <a [routerLink]="['/registries', r.id]" class="card-link">
-        <div class="card-header">
-          <h3 class="card-title">{{ r.eventName }}</h3>
-          <div class="card-badge">{{ r.date }}</div>
+
+  <div *ngIf="!loading && !error && registries.length > 0">
+    <section class="filters" style="margin-bottom: 1.5rem;">
+      <h2 style="margin-bottom: 0.75rem;">Search & Filters</h2>
+
+      <div
+        style="display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));"
+      >
+        <div>
+          <label style="display:block; margin-bottom: 0.25rem;">Search</label>
+          <input
+            type="text"
+            placeholder="Search by event, owner, description..."
+            [(ngModel)]="searchText"
+            name="searchText"
+          />
         </div>
-        
-        <div class="card-body">
-          <p class="card-owner">
-            <span class="icon">👤</span>
-            {{ r.ownerName }}
-          </p>
-          
-          <p class="card-description" *ngIf="r.description">
-            {{ r.description }}
-          </p>
+
+        <div>
+          <label style="display:block; margin-bottom: 0.25rem;">Owner</label>
+          <input
+            type="text"
+            placeholder="Filter by owner..."
+            [(ngModel)]="ownerFilter"
+            name="ownerFilter"
+          />
         </div>
-        
-        <div class="card-footer">
-          <div class="card-stat">
-            <span class="stat-icon">📦</span>
-            <span class="stat-value">{{ r.items.length }}</span>
-            <span class="stat-label">Items</span>
+
+        <div>
+          <label style="display:block; margin-bottom: 0.25rem;">Date from</label>
+          <input type="date" [(ngModel)]="dateFrom" name="dateFrom" />
+        </div>
+
+        <div>
+          <label style="display:block; margin-bottom: 0.25rem;">Date to</label>
+          <input type="date" [(ngModel)]="dateTo" name="dateTo" />
+        </div>
+
+        <div>
+          <label style="display:block; margin-bottom: 0.25rem;">Sort</label>
+          <select [(ngModel)]="sortBy" name="sortBy">
+            <option value="dateAsc">Date (oldest → newest)</option>
+            <option value="dateDesc">Date (newest → oldest)</option>
+            <option value="nameAsc">Name (A → Z)</option>
+            <option value="nameDesc">Name (Z → A)</option>
+          </select>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.5rem; padding-top: 1.25rem;">
+          <input type="checkbox" [(ngModel)]="purchasedOnly" name="purchasedOnly" />
+          <label>Purchased-only registries</label>
+        </div>
+      </div>
+
+      <div
+      style="margin-top: 0.75rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;"
+      >
+      <small>Showing {{ visibleRegistries.length }} registries</small>
+
+      <button type="button" (click)="resetFilters()">
+        🔄 Reset filters
+      </button>
+    </div>
+  </section>
+
+    
+    <div *ngIf="visibleRegistries.length === 0" class="empty-state">
+      <div class="empty-icon">🔎</div>
+      <h2>No results</h2>
+      <p>No registries match your filters.</p>
+    </div>
+
+   
+    <div *ngIf="visibleRegistries.length > 0" class="registry-grid">
+      <div *ngFor="let r of visibleRegistries" class="registry-card">
+        <a [routerLink]="['/registries', r.id]" class="card-link">
+          <div class="card-header">
+            <h3 class="card-title">{{ r.eventName }}</h3>
+            <div class="card-badge">{{ r.date }}</div>
           </div>
-          <div class="card-stat">
-            <span class="stat-icon">👥</span>
-            <span class="stat-value">{{ r.guests.length }}</span>
-            <span class="stat-label">Guests</span>
+
+          <div class="card-body">
+            <p class="card-owner">
+              <span class="icon">👤</span>
+              {{ r.ownerName }}
+            </p>
+
+            <p class="card-description" *ngIf="r.description">
+              {{ r.description }}
+            </p>
           </div>
-        </div>
-      </a>
+
+          <div class="card-footer">
+            <div class="card-stat">
+              <span class="stat-icon">📦</span>
+              <span class="stat-value">{{ r.items.length }}</span>
+              <span class="stat-label">Items</span>
+            </div>
+            <div class="card-stat">
+              <span class="stat-icon">👥</span>
+              <span class="stat-value">{{ r.guests.length }}</span>
+              <span class="stat-label">Guests</span>
+            </div>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 </div>
